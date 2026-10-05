@@ -1,8 +1,8 @@
 const PREFIX='quick-phrase-shell-';
-const CACHE=PREFIX+'v1.0.0-r2';
+const CACHE=PREFIX+'v1.0.0-r3';
 const ROOT=new URL('./',self.location).href;
 const ASSETS=['./','./index.html','./style.css','./app.js','./db.js','./manifest.json','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png'].map(p=>new URL(p,ROOT).href);
-self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));});
+self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS.map(url=>new Request(url,{cache:'reload'})))));});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{for(const name of await caches.keys())if(name.startsWith(PREFIX)&&name!==CACHE)await caches.delete(name);await self.clients.claim();})());});
 self.addEventListener('fetch',event=>{
   const request=event.request;if(request.method!=='GET')return;
