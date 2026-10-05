@@ -5,7 +5,7 @@ for(const id of loadingControls)$(id).disabled=true;
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
 let state,activeTab='all',editing=false,editingId=null,editingVersion=null,previewId=null,toastTimer,installPrompt;
 let queue=Promise.resolve();const media=matchMedia('(prefers-color-scheme: dark)');
-function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,3000);}
+function toast(message){const notice=$('toast');notice.textContent=message;notice.hidden=false;notice.showPopover?.();clearTimeout(toastTimer);toastTimer=setTimeout(()=>{notice.hidePopover?.();notice.hidden=true;},3000);}
 function showError(message){toast(message);}
 function applyTheme(){document.documentElement.dataset.theme=state.settings.theme==='auto'?(media.matches?'dark':'light'):state.settings.theme;document.body.classList.toggle('large',state.settings.buttonSize==='large');}
 media.addEventListener('change',()=>{if(state)applyTheme();});

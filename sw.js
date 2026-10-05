@@ -1,5 +1,5 @@
 const PREFIX='quick-phrase-shell-';
-const CACHE=PREFIX+'v1.0.0';
+const CACHE=PREFIX+'v1.0.0-r2';
 const ROOT=new URL('./',self.location).href;
 const ASSETS=['./','./index.html','./style.css','./app.js','./db.js','./manifest.json','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png'].map(p=>new URL(p,ROOT).href);
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));});
